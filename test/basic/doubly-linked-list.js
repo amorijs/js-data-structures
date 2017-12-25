@@ -194,7 +194,7 @@ describe('doubly linked list', () => {
         expect(list.find('value not in list')).to.equal(null);
       });
 
-      it('should return the first node that contains the specified value', () => {
+      it('should return the a node that contains the specified value', () => {
         const node = list.find(halfLength);
         expect(node).to.exist;
         expect(node).to.be.an.instanceOf(Node);
@@ -207,6 +207,34 @@ describe('doubly linked list', () => {
         list.add(halfLength + 1);
         list.add(halfLength - 1);
         expect(list.find(halfLength)).to.not.equal(duplicateNode);
+      });
+    });
+
+    describe('findLast', () => {
+      const originalLength = 10;
+      const halfLength = Math.floor(originalLength / 2);
+
+      beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
+
+      it('should be a function', () => expect(list.findLast).to.be.a('function'));
+
+      it('should return null if the value is not found', () => {
+        expect(list.findLast('value not in list')).to.equal(null);
+      });
+
+      it('should return a node that contains the specified value', () => {
+        const node = list.findLast(halfLength);
+        expect(node).to.exist;
+        expect(node).to.be.an.instanceOf(Node);
+        expect(node.value).to.equal(halfLength);
+      });
+
+      it('should not return a node that contains the same value further down the link chain', () => {
+        list.add(halfLength);
+        const duplicateNode = list.find(halfLength);
+        list.add(halfLength + 1);
+        list.add(halfLength - 1);
+        expect(list.findLast(halfLength)).to.not.equal(duplicateNode);
       });
     });
 
