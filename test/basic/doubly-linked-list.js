@@ -11,6 +11,11 @@ const hooks = {
     }
   },
 
+  addNodesToListAndReturnLengthObject(list, numOfNodes) {
+    addNodesToList(list, numOfNodes);
+    return { originalLength: list.length, halfLength: Math.floor(list.length / 2) };
+  },
+
   clearList(list) {
     list.head = null;
     list.tail = null;
@@ -51,6 +56,9 @@ describe('doubly linked list', () => {
   });
 
   describe('methods', () => {
+    const originalLength = 10;
+    const halfLength = Math.floor(originalLength / 2);
+
     describe('add', () => {
       it('should be a function', () => {
         list.add.should.be.a('function');
@@ -112,9 +120,6 @@ describe('doubly linked list', () => {
     });
 
     describe('addAtIndex', () => {
-      const originalLength = 10;
-      const halfLength = Math.floor(originalLength / 2);
-
       beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.addAtIndex).to.be.a('function'));
@@ -183,9 +188,6 @@ describe('doubly linked list', () => {
     });
 
     describe('contains', () => {
-      const originalLength = 10;
-      const halfLength = Math.floor(originalLength / 2);
-
       beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.contains).to.be.a('function'));
@@ -193,7 +195,7 @@ describe('doubly linked list', () => {
       it('should return false if list is empty', () => {
         hooks.clearList(list);
         expect(list.contains(halfLength)).to.equal(false);
-      })
+      });
 
       it('should return false if value is not found', () => {
         expect(list.contains(originalLength + 10)).to.equal(false);
@@ -205,9 +207,6 @@ describe('doubly linked list', () => {
     });
 
     describe('find', () => {
-      const originalLength = 10;
-      const halfLength = Math.floor(originalLength / 2);
-
       beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.find).to.be.a('function'));
@@ -233,9 +232,6 @@ describe('doubly linked list', () => {
     });
 
     describe('findLast', () => {
-      const originalLength = 10;
-      const halfLength = Math.floor(originalLength / 2);
-
       beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.findLast).to.be.a('function'));
@@ -261,8 +257,6 @@ describe('doubly linked list', () => {
     });
 
     describe('removeFirst', () => {
-      const originalLength = 8;
-
       beforeEach('add nodes to the list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.removeFirst).to.be.a('function'));
@@ -308,8 +302,6 @@ describe('doubly linked list', () => {
     });
 
     describe('removeLast', () => {
-      const originalLength = 8;
-
       beforeEach('add nodes to the list', () => hooks.addNodesToList(list, originalLength));
 
       it('should be a function', () => expect(list.removeLast).to.be.a('function'));
