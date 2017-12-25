@@ -11,6 +11,16 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
+  find(value) {
+    let current = this.head;
+
+    while(current && current.value !== value) {
+      current = current.next;
+    }
+
+    return current;
+  }
+
   add(value) {
     const newNode = new Node(value);
 
