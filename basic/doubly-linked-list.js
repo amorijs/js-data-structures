@@ -49,7 +49,6 @@ class DoublyLinkedList {
   }
 
   findIndexFromLast(index) {
-    console.log('vary wow')
     let current = this.tail;
     let stopIndex = this.length - index;
 
