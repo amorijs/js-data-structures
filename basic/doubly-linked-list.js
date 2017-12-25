@@ -36,6 +36,30 @@ class DoublyLinkedList {
     return current;
   }
 
+  findIndex(index) {
+    if (index > Math.ceil(this.length / 2)) return this.findIndexFromLast(index);
+
+    let current = this.head;
+
+    for (let i = 0; i < index && current; i += 1) {
+      current = current.next;
+    }
+
+    return current;
+  }
+
+  findIndexFromLast(index) {
+    console.log('vary wow')
+    let current = this.tail;
+    let stopIndex = this.length - index;
+
+    for (let i = 0; i < stopIndex && current; i += 1) {
+      current = current.previous;
+    }
+
+    return current;
+  }
+
   add(value) {
     const newNode = new Node(value);
 
@@ -50,6 +74,8 @@ class DoublyLinkedList {
 
   addAtIndex(index, value) {
     if (index > this.length || index < 0) throw new Error('Index out of bounds');
+    if (typeof index !== 'number') throw new Error('Index must be of type number');
+
     const newNode = new Node(value);
     let current = this.head;
 
