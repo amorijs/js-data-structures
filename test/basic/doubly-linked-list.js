@@ -182,6 +182,28 @@ describe('doubly linked list', () => {
       });
     });
 
+    describe('contains', () => {
+      const originalLength = 10;
+      const halfLength = Math.floor(originalLength / 2);
+
+      beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
+
+      it('should be a function', () => expect(list.contains).to.be.a('function'));
+
+      it('should return false if list is empty', () => {
+        hooks.clearList(list);
+        expect(list.contains(halfLength)).to.equal(false);
+      })
+
+      it('should return false if value is not found', () => {
+        expect(list.contains(originalLength + 10)).to.equal(false);
+      });
+
+      it('should return true if value is found in list', () => {
+        expect(list.contains(halfLength)).to.equal(true);
+      });
+    });
+
     describe('find', () => {
       const originalLength = 10;
       const halfLength = Math.floor(originalLength / 2);
