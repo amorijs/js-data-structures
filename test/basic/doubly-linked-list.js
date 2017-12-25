@@ -119,10 +119,13 @@ describe('doubly linked list', () => {
 
       it('should be a function', () => expect(list.addAtIndex).to.be.a('function'));
 
-      it('should throw an error if index is out of range', () => {
+      it('should throw an error if index is not defined or out of range', () => {
         const createAddAtIndex = (index, value) => () => list.addAtIndex(index, value);
+
         expect(createAddAtIndex(-5, 'value')).to.throw(/index/gi);
         expect(createAddAtIndex(originalLength + 10, 'value')).to.throw(/index/gi);
+
+        expect(createAddAtIndex(null, 'value')).to.throw(/index/gi);
       });
 
       it('should add to the beginning of list if index is 0', () => {
@@ -248,6 +251,38 @@ describe('doubly linked list', () => {
         list.add(halfLength + 1);
         list.add(halfLength - 1);
         expect(list.findLast(halfLength)).to.not.equal(duplicateNode);
+      });
+    });
+
+    describe('findIndex', () => {
+      beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
+
+      it('should be a function', () => expect(list.findLast).to.be.a('function'));
+
+      it('should return the appropriate node for the given index', () => {
+        let nodeToFind = list.head;
+
+        for (let i = 0; i < halfLength; i += 1) {
+          nodeToFind = nodeToFind.next;
+        }
+
+        expect(list.findIndex(halfLength)).to.equal(nodeToFind);
+      });
+
+      it('should search from the end of the list if the search index is greater than half the list length', () => {
+        for (let i = originalLength; i < 1000000; i += 1) {
+          list.add(i);
+        }
+
+        let timeBefore = Date.now();
+        list.findIndex(Math.floor(0.95 * list.length));
+        const elapsedTimeForEndOfListSearch = Date.now() - timeBefore;
+
+        timeBefore = Date.now();
+        list.findIndex(Math.floor(0.5 * list.length));
+        const elapsedTimeForMiddleOfListSearch = Date.now() - timeBefore;
+
+        expect(elapsedTimeForEndOfListSearch).to.be.below(elapsedTimeForMiddleOfListSearch);
       });
     });
 
