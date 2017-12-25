@@ -182,6 +182,34 @@ describe('doubly linked list', () => {
       });
     });
 
+    describe('find', () => {
+      const originalLength = 10;
+      const halfLength = Math.floor(originalLength / 2);
+
+      beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
+
+      it('should be a function', () => expect(list.find).to.be.a('function'));
+
+      it('should return null if the value is not found', () => {
+        expect(list.find('value not in list')).to.equal(null);
+      });
+
+      it('should return the first node that contains the specified value', () => {
+        const node = list.find(halfLength);
+        expect(node).to.exist;
+        expect(node).to.be.an.instanceOf(Node);
+        expect(node.value).to.equal(halfLength);
+      });
+
+      it('should not return a node that contains the same value further down the link chain', () => {
+        list.add(halfLength);
+        const duplicateNode = list.tail;
+        list.add(halfLength + 1);
+        list.add(halfLength - 1);
+        expect(list.find(halfLength)).to.not.equal(duplicateNode);
+      });
+    });
+
     describe('removeFirst', () => {
       const originalLength = 8;
 
