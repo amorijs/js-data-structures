@@ -11,6 +11,11 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
+  contains(value) {
+    if (this.find(value) !== null) return true;
+    else return false;
+  }
+
   find(value) {
     let current = this.head;
 
