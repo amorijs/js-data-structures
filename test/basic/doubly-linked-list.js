@@ -51,8 +51,8 @@ describe('doubly linked list', () => {
   });
 
   describe('methods', () => {
-    const originalLength = 10;
-    const halfLength = Math.floor(originalLength / 2);
+    let originalLength = 10;
+    let halfLength = Math.floor(originalLength / 2);
 
     describe('add', () => {
       it('should be a function', () => {
