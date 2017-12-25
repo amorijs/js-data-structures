@@ -11,11 +11,6 @@ const hooks = {
     }
   },
 
-  addNodesToListAndReturnLengthObject(list, numOfNodes) {
-    addNodesToList(list, numOfNodes);
-    return { originalLength: list.length, halfLength: Math.floor(list.length / 2) };
-  },
-
   clearList(list) {
     list.head = null;
     list.tail = null;
