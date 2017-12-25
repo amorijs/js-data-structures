@@ -14,8 +14,18 @@ class DoublyLinkedList {
   find(value) {
     let current = this.head;
 
-    while(current && current.value !== value) {
+    while (current && current.value !== value) {
       current = current.next;
+    }
+
+    return current;
+  }
+
+  findLast(value) {
+    let current = this.tail;
+
+    while (current && current.value !== value) {
+      current = current.previous;
     }
 
     return current;
