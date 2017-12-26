@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const basicFilePaths = fs
-  .readdirSync(path.join(__dirname, 'basic'))
-  .map(fileName => `./basic/${fileName}`);
+const dataStructureFilePaths = fs
+  .readdirSync(path.join(__dirname, 'structures'))
+  .map(fileName => `./structures/${fileName}`);
 
-describe('Basic Data Structures', () => basicFilePaths.forEach(require));
+describe('Basic Data Structures', () => dataStructureFilePaths.forEach(require));

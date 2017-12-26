@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const { Node, DoublyLinkedList } = require('../../basic/doubly-linked-list.js');
+const { Node, DoublyLinkedList } = require('../../structures/doubly-linked-list');
 
 const hooks = {
   addNodesToList(list, numOfNodes) {

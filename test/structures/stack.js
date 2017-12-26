@@ -1,7 +1,7 @@
 const chai = require('chai');
 const { expect } = chai;
 
-const Stack = require('../../basic/stack');
+const Stack = require('../../structures/stack');
 
 const hooks = {
   clearStack(stack) {
