@@ -21,6 +21,8 @@ describe('stack', () => {
 
     describe('methods', () => {
       describe('push', () => {
+        it('should be a function', () => expect(stack.push).to.be.a('function'));
+
         it('should increase in length every time a value is pushed', () => {
           for (let i = 1; i <= 10; i += 1) {
             stack.push(i);
@@ -37,7 +39,7 @@ describe('stack', () => {
 
         it('should push multiple arguments in order they were provided', () => {
           stack.push(0, 1, 2, 3, 4);
-          
+
           for (let i = 0; i <= 4; i += 1) {
             expect(stack.storage[i]).to.equal(i);
           }
