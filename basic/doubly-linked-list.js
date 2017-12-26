@@ -50,7 +50,7 @@ class DoublyLinkedList {
 
   findIndexFromLast(index) {
     let current = this.tail;
-    let stopIndex = this.length - index;
+    let stopIndex = (this.length - 1) - index;
 
     for (let i = 0; i < stopIndex && current; i += 1) {
       current = current.previous;
