@@ -1,6 +1,5 @@
 const chai = require('chai');
 const { expect } = chai;
-const should = chai.should();
 const sinon = require('sinon');
 
 const { Node, DoublyLinkedList } = require('../../basic/doubly-linked-list.js');
@@ -57,7 +56,7 @@ describe('doubly linked list', () => {
 
     describe('add', () => {
       it('should be a function', () => {
-        list.add.should.be.a('function');
+        expect(list.add).to.be.a('function');
       });
 
       it('should set head and tail to the first node added', () => {
