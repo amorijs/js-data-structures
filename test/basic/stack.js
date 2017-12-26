@@ -3,6 +3,13 @@ const { expect } = chai;
 
 const Stack = require('../../basic/stack');
 
+const hooks = {
+  clearStack(stack) {
+    stack.length = 0;
+    stack.storage = [];
+  }
+};
+
 describe('stack', () => {
   let stack;
 
@@ -42,6 +49,45 @@ describe('stack', () => {
 
           for (let i = 0; i <= 4; i += 1) {
             expect(stack.storage[i]).to.equal(i);
+          }
+        });
+      });
+
+      describe('pop', () => {
+        beforeEach(() => {});
+
+        it('should decrease in length everytime a value is popped', () => {
+          const length = 10;
+
+          for (let i = 0; i < length; i += 1) {
+            stack.push(`value ${i}`);
+          }
+
+          for (let i = length - 1; i >= 0; i -= 1) {
+            stack.pop();
+            expect(stack.length).to.equal(i);
+          }
+        });
+
+        it('should not decrease in length and return undefined if the stack is empty', () => {
+          hooks.clearStack(stack);
+
+          for (let i = 0; i < 10; i += 1) {
+            const popped = stack.pop();
+            expect(popped).to.equal(undefined);
+            expect(stack.length).to.be.at.least(0);
+          }
+        });
+
+        it('should return the top of the stack', () => {
+          const length = 10;
+
+          for (let i = 0; i < length; i += 1) {
+            stack.push(i);
+          }
+
+          for (let i = length - 1; i >= 0; i -= 1) {
+            expect(stack.pop()).to.equal(i);
           }
         });
       });
