@@ -10,6 +10,13 @@ class Stack {
       this.length += 1;
     });
   }
+
+  pop() {
+    if (this.length === 0) return;
+    const valueToPop = this.storage[this.length - 1];
+    this.length -= 1;
+    return valueToPop;
+  }
 }
 
 module.exports = Stack;
