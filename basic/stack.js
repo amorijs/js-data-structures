@@ -17,6 +17,14 @@ class Stack {
     this.length -= 1;
     return valueToPop;
   }
+
+  peek() {
+    if (this.length > 0) return this.storage[this.length - 1];
+  }
+
+  peekFront() {
+    if (this.length > 0) return this.storage[0];
+  }
 }
 
 module.exports = Stack;
