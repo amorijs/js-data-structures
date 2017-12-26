@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = chai;
 const sinon = require('sinon');
 
-const { Node, DoublyLinkedList } = require('../../structures/doubly-linked-list');
+const { Node, DoublyLinkedList } = require('../../structures/doubly-linked-list.js');
 
 const hooks = {
   addNodesToList(list, numOfNodes) {
@@ -201,6 +201,20 @@ describe('doubly linked list', () => {
 
       it('should return true if value is found in list', () => {
         expect(list.contains(halfLength)).to.equal(true);
+      });
+    });
+
+    describe('isEmpty', () => {
+      it('should be a function', () => expect(list.isEmpty).to.be.a('function'));
+
+      it('should return a boolean dictating the list is empty', () => {
+        hooks.clearList(list);
+        expect(list.isEmpty()).to.equal(true);
+
+        for (let i = 0; i < 5; i += 1) {
+          list.add(3);
+          expect(list.isEmpty()).to.equal(false);
+        }
       });
     });
 
