@@ -11,6 +11,10 @@ class DoublyLinkedList {
     this.length = 0;
   }
 
+  isEmpty() {
+    return this.length === 0;
+  }
+
   contains(value) {
     if (this.find(value) !== null) return true;
     else return false;
@@ -50,7 +54,7 @@ class DoublyLinkedList {
 
   findIndexFromLast(index) {
     let current = this.tail;
-    let stopIndex = (this.length - 1) - index;
+    let stopIndex = this.length - 1 - index;
 
     for (let i = 0; i < stopIndex && current; i += 1) {
       current = current.previous;
@@ -62,9 +66,9 @@ class DoublyLinkedList {
   add(value) {
     const newNode = new Node(value);
 
-    if (this.length === 0) this.head = newNode;
+    if (this.isEmpty()) this.head = newNode;
     else this.tail.next = newNode;
-    
+
     newNode.previous = this.tail;
     this.tail = newNode;
 
@@ -77,15 +81,15 @@ class DoublyLinkedList {
     if (typeof index !== 'number') throw new Error('Index must be of type number');
 
     const newNode = new Node(value);
-    let current = this.findIndex(index);
+    const current = this.findIndex(index);
 
-    if (index > 0) {
+    if (index === 0) {
+      newNode.next = this.head;
+      this.head = newNode;
+    } else {
       newNode.next = current;
       current.previous.next = newNode;
       current.previous = newNode;
-    } else {
-      newNode.next = this.head;
-      this.head = newNode;
     }
 
     this.length += 1;
@@ -93,34 +97,34 @@ class DoublyLinkedList {
   }
 
   removeFirst() {
-    if (this.length === 0) return null;
+    if (this.isEmpty()) return null;
 
     const previousHeadValue = this.head.value;
     this.length -= 1;
 
-    if (this.length > 0) {
-      this.head = this.head.next;
-      this.head.previous = null;
-    } else {
+    if (this.isEmpty()) {
       this.head = null;
       this.tail = null;
+    } else {
+      this.head = this.head.next;
+      this.head.previous = null;
     }
 
     return previousHeadValue;
   }
 
   removeLast() {
-    if (this.length === 0) return null;
+    if (this.isEmpty()) return null;
 
     const oldTailValue = this.tail.value;
     this.length -= 1;
 
-    if (this.length > 0) {
-      this.tail = this.tail.previous;
-      this.tail.next = null;
-    } else {
+    if (this.isEmpty()) {
       this.head = null;
       this.tail = null;
+    } else {
+      this.tail = this.tail.previous;
+      this.tail.next = null;
     }
 
     return oldTailValue;
