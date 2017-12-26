@@ -282,20 +282,10 @@ describe('doubly linked list', () => {
       });
 
       it('should call findIndexFromLast if the search index is greater than half the list length', () => {
-        sinon.spy(list, 'findIndexFromLast');
-        for (let i = originalLength; i < 1000000; i += 1) {
-          list.add(i);
-        }
-
-        let timeBefore = Date.now();
-        list.findIndex(Math.floor(0.95 * list.length));
-        const elapsedTimeForEndOfListSearch = Date.now() - timeBefore;
-
-        timeBefore = Date.now();
-        list.findIndex(Math.floor(0.5 * list.length));
-        const elapsedTimeForMiddleOfListSearch = Date.now() - timeBefore;
-
-        expect(elapsedTimeForEndOfListSearch).to.be.below(elapsedTimeForMiddleOfListSearch);
+        const spy = sinon.spy(list, 'findIndexFromLast');
+        const largeIndex = Math.floor(0.9 * originalLength);
+        list.findIndex(largeIndex);
+        expect(spy.calledWith(largeIndex)).to.equal(true);
       });
     });
 
