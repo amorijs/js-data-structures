@@ -1,6 +1,7 @@
 const chai = require('chai');
 const { expect } = chai;
 const should = chai.should();
+const sinon = require('sinon');
 
 const { Node, DoublyLinkedList } = require('../../basic/doubly-linked-list.js');
 
@@ -254,6 +255,18 @@ describe('doubly linked list', () => {
       });
     });
 
+    describe('findIndexFromLast', () => {
+      beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
+
+      it('should be a function', () => expect(list.findIndexFromLast).to.be.a('function'));
+
+      it('should return the correct node for the specified index', () => {
+        expect(list.findIndexFromLast(list.length - 1)).to.equal(list.tail);
+        expect(list.findIndexFromLast(halfLength).value).to.equal(halfLength);
+        expect(list.findIndexFromLast(0)).to.equal(list.head);
+      });
+    });
+
     describe('findIndex', () => {
       beforeEach('add nodes to list', () => hooks.addNodesToList(list, originalLength));
 
@@ -269,7 +282,8 @@ describe('doubly linked list', () => {
         expect(list.findIndex(halfLength)).to.equal(nodeToFind);
       });
 
-      it('should search from the end of the list if the search index is greater than half the list length', () => {
+      it('should call findIndexFromLast if the search index is greater than half the list length', () => {
+        sinon.spy(list, 'findIndexFromLast');
         for (let i = originalLength; i < 1000000; i += 1) {
           list.add(i);
         }
