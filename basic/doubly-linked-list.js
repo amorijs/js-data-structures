@@ -76,11 +76,7 @@ class DoublyLinkedList {
     if (typeof index !== 'number') throw new Error('Index must be of type number');
 
     const newNode = new Node(value);
-    let current = this.head;
-
-    for (let i = 0; i < index; i += 1) {
-      current = current.next;
-    }
+    let current = this.findIndex(index);
 
     if (index > 0) {
       newNode.next = current;
