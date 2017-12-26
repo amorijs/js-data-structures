@@ -95,6 +95,18 @@ describe('stack', () => {
       describe('peek', () => {
         it('should be a function', () => expect(stack.peek).to.be.a('function'));
 
+        beforeEach('add to stack', () => {
+          for (let i = 0; i < 10; i += 1) {
+            stack.push(`value ${i}`);
+          }
+        });
+
+        it('should not affect the length of the stack', () => {
+          const originalLength = stack.length;
+          stack.peek();
+          expect(stack.length).to.equal(originalLength);
+        });
+
         it('should return undefined if the stack is empty', () => {
           hooks.clearStack(stack);
           expect(stack.peek()).to.equal(undefined);
@@ -112,15 +124,34 @@ describe('stack', () => {
       describe('peekFront', () => {
         it('should be a function', () => expect(stack.peek).to.be.a('function'));
 
+        beforeEach('add to stack', () => {
+          for (let i = 0; i < 10; i += 1) {
+            stack.push(`value ${i}`);
+          }
+        });
+
+        it('should not affect the length of the stack', () => {
+          const originalLength = stack.length;
+          stack.peekFront();
+          expect(stack.length).to.equal(originalLength);
+        });
+
         it('should return undefined if the stack is empty', () => {
           hooks.clearStack(stack);
           expect(stack.peekFront()).to.equal(undefined);
         });
 
         it('should return the bottom of the stack if it has items', () => {
+          hooks.clearStack(stack);
+          
           const uniqueValue = {};
           stack.push(uniqueValue);
           expect(stack.peekFront()).to.equal(uniqueValue);
+
+          for (let i = 0; i < 10; i += 1) {
+            stack.push(`value ${i}`);
+          }
+
           stack.push(0);
           expect(stack.peekFront()).to.equal(uniqueValue);
         });
