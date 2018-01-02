@@ -16,8 +16,7 @@ class DoublyLinkedList {
   }
 
   contains(value) {
-    if (this.find(value) !== null) return true;
-    else return false;
+    return this.find(value) !== null;
   }
 
   find(value) {
